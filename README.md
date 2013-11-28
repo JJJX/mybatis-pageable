@@ -50,4 +50,4 @@ public class SysUserServiceImpl implements SysUserService {
 
 注意，由于项目中采用 Page类和Pageable类来源于 spring-data-commons，请添加对spring-data-commons的依赖。
 
-方言类和部分逻辑来源于 https://github.com/miemiedev/mybatis-paginator，特此感谢。
+方言类和部分逻辑来源于 https://github.com/miemiedev/mybatis-paginator ，特此感谢。
