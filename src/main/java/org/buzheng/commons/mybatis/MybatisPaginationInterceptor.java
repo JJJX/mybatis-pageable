@@ -89,7 +89,7 @@ public class MybatisPaginationInterceptor implements Interceptor {
 			queryArgs[ROWBOUNDS_INDEX] = new RowBounds(RowBounds.NO_ROW_OFFSET,RowBounds.NO_ROW_LIMIT);
 			queryArgs[MAPPED_STATEMENT_INDEX] = copyFromNewSql(ms, boundSql, limitSql);
 			
-			// 2.2 继续执行生育步骤，获取查询结果
+			// 2.2 继续执行剩余步骤，获取查询结果
 			Object ret = inv.proceed();
 			
 			// 3. 组成分页对象
