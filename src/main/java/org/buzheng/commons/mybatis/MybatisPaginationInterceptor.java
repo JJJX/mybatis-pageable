@@ -162,9 +162,10 @@ public class MybatisPaginationInterceptor implements Interceptor {
 	 * @param mappedStatement
 	 * @param boundSql
 	 * @return
+	 * @throws SQLException 
 	 */
 	private int queryTotal(String sql, MappedStatement mappedStatement,
-            BoundSql boundSql) {
+            BoundSql boundSql) throws SQLException {
 		
 		Connection connection = null;
         PreparedStatement countStmt = null;
@@ -191,21 +192,26 @@ public class MybatisPaginationInterceptor implements Interceptor {
 
             return totalCount;
         } catch (SQLException e) {
-            logger.error("Ignore this exception", e);
+            logger.error("查询总记录数出错", e);
+            throw e;
         } finally {
-            try {
-                rs.close();
-            } catch (SQLException e) {
-                logger.error("Ignore this exception", e);
-            }
-            try {
-                countStmt.close();
-            } catch (SQLException e) {
-                logger.error("Ignore this exception", e);
-            }
+        	if (rs != null) {
+	            try {
+	                rs.close();
+	            } catch (SQLException e) {
+	                logger.error("查询总记录数后关闭 ResultSet 出错", e);
+	            }
+        	}
+        	
+        	if (countStmt != null) {
+	            try {
+	                countStmt.close();
+	            } catch (SQLException e) {
+	                logger.error("查询总记录数后关闭 Statement 出错", e);
+	            }
+        	}
         }
 		
-		return 0;
 	}
 	
 	/**
