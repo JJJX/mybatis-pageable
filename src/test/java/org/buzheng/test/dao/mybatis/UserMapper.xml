@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.buzheng.test.dao.UserDao">
+	
+	<select id="findPage" resultType="User">
+		select * from users  
+	</select>
+	
+	<select id="findPageByAge" resultType="User">
+		select * from users where age = #{param1}
+	</select>
+	
+</mapper>

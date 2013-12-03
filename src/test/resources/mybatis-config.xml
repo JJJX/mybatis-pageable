@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+
+	<properties>
+		<property name="dialect" value="mysql" />
+		<property name="pageSqlId" value=".*Page$" />
+	</properties>
+    
+	<settings>
+		<!-- changes from the defaults -->
+		<setting name="lazyLoadingEnabled" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="true" /> 
+	</settings>
+	
+	<!--typeAliases>
+		<typeAlias type="cn.iszt.ms.domain.User" alias="user" />
+	</typeAliases-->
+
+	<!--plugins>
+		<plugin interceptor="org.mybatis.pagination.PaginationInterceptor">
+			<property name="dbms" value="mysql" />
+			<property name="sqlRegex" value=".*ByPage$" />
+		</plugin>
+	</plugins-->
+
+
+	<plugins>
+		<plugin interceptor="org.buzheng.commons.mybatis.MybatisPaginationInterceptor">
+		    <property name="dialectClass" value="org.buzheng.commons.mybatis.MySQLDialect"/>
+		</plugin>
+	</plugins>
+
+	<!--plugins>
+        <plugin interceptor="com.github.miemiedev.mybatis.paginator.OffsetLimitInterceptor">
+            <property name="dialectClass" value="com.github.miemiedev.mybatis.paginator.dialect.OracleDialect"/>
+        </plugin>
+    </plugins-->
+	
+</configuration>
