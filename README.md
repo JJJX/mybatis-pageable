@@ -1,13 +1,28 @@
 mybatis-pagable
 ===============
 
-mybatis 分页拦截器，使用方法和思路：
+背景
+-------------------
+对Mybatis的原理并不是很了解，但是想法很简单也很直接，就是直接将分页参数传入，返回的需要的分页对象。了解到拦截器可以实现此功能，然后在网上拷贝了一些代码，先实现了想法。
+
+使用方法和思路
+-------------------
 
 1、分页对象采用spring-data中的Page和Pageable，其中Pageable作为分页请求，Page为返回的分页对象。
 
 2、拦截器会对方法中的参数进行分析，如果发现Pageable类型的参数，则认为是分页请求，将请求封装为Page对象返回。
 
-Mapper接口方法写法
+### 拦截器配置
+
+```xml
+<plugins>
+    <plugin interceptor="org.buzheng.commons.mybatis.MybatisPaginationInterceptor">
+	    <property name="dialectClass" value="org.buzheng.commons.mybatis.MySQLDialect"/>
+	</plugin>
+</plugins>
+```
+
+### Mapper接口方法写法
 
 ```java
 public interface SysUserDao {	
@@ -15,7 +30,7 @@ public interface SysUserDao {
 }
 ```
 
-Mapper.xml 写法(和普通查询一样)
+### Mapper.xml 写法(和普通查询一样)
 
 ```xml
 <select id="findPageByParams" resultType="SysUser">
@@ -31,7 +46,7 @@ Mapper.xml 写法(和普通查询一样)
 </select>
 ```
 
-service 调用写法(注意返回类型和包装请求对象为Pageable)
+### service 调用写法(注意返回类型和包装请求对象为Pageable)
 ```java
 @Service
 public class SysUserServiceImpl implements SysUserService {
