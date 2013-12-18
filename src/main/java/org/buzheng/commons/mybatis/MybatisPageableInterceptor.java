@@ -43,9 +43,9 @@ import org.springframework.data.domain.Pageable;
  */
 @Intercepts({ @Signature(type = Executor.class, method = "query", args = 
 { MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class } )})
-public class MybatisPaginationInterceptor implements Interceptor {
+public class MybatisPageableInterceptor implements Interceptor {
 	
-	private static Logger logger = LoggerFactory.getLogger(MybatisPaginationInterceptor.class);
+	private static Logger logger = LoggerFactory.getLogger(MybatisPageableInterceptor.class);
 	
 	static int MAPPED_STATEMENT_INDEX = 0;
 	static int PARAMETER_INDEX = 1;
