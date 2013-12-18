@@ -16,7 +16,7 @@ Mybatis Pageable
 
 ```xml
 <plugins>
-    <plugin interceptor="org.buzheng.commons.mybatis.MybatisPaginationInterceptor">
+    <plugin interceptor="org.buzheng.commons.mybatis.MybatisPageableInterceptor">
 	    <property name="dialectClass" value="org.buzheng.commons.mybatis.MySQLDialect"/>
 	</plugin>
 </plugins>
