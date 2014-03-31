@@ -195,21 +195,29 @@ public class MybatisPageableInterceptor implements Interceptor {
             logger.error("查询总记录数出错", e);
             throw e;
         } finally {
-        	try {
-                rs.close();
-            } catch (SQLException e) {
-                logger.error("exception happens when doing: ResultSet.close()", e);
-            }
-            try {
-                countStmt.close();
-            } catch (SQLException e) {
-                logger.error("exception happens when doing: PreparedStatement.close()", e);
-            }
-            try {
-            	connection.close();
-            } catch (SQLException e) {
-                logger.error("exception happens when doing: Connection.close()", e);
-            }
+        	if (rs != null) {
+	        	try {
+	                rs.close();
+	            } catch (SQLException e) {
+	                logger.error("exception happens when doing: ResultSet.close()", e);
+	            }
+        	}
+        	
+        	if (countStmt != null) {
+	            try {
+	                countStmt.close();
+	            } catch (SQLException e) {
+	                logger.error("exception happens when doing: PreparedStatement.close()", e);
+	            }
+        	}
+        	
+        	if (connection != null) {
+	            try {
+	            	connection.close();
+	            } catch (SQLException e) {
+	                logger.error("exception happens when doing: Connection.close()", e);
+	            }
+        	}
         }
 		
 	}
