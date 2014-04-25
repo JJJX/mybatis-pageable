@@ -1,4 +1,4 @@
-package org.buzheng.commons.mybatis;
+package org.buzheng.mybatis.pageable;
 
 
 
