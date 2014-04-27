@@ -28,9 +28,6 @@ import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 
 /**
  * 分页插件，采用spring-data-common中的 Pageable 和 Page 对象作为输入和输出。
@@ -93,7 +90,8 @@ public class MybatisPageableInterceptor implements Interceptor {
 			Object ret = inv.proceed();
 			
 			// 3. 组成分页对象
-			Page<?> pi = new PageImpl<Object>((List) ret, pageRequest, total);	
+//			Page<?> pi = new PageImpl<Object>((List) ret, pageRequest, total);	
+			Page<?> pi = new Page<Object>((List) ret, pageRequest, total);	
 			
 			// 4. MyBatis 需要返回一个List对象，这里只是满足MyBatis而作的临时包装
 			List<Page<?>> tmp = new ArrayList<Page<?>>(1);

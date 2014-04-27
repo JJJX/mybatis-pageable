@@ -13,6 +13,10 @@
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 
+	<typeAliases>
+		<package name="org.buzheng.mybatis.pageable.domain" />
+	</typeAliases>
+
 	<plugins>
 		<plugin interceptor="org.buzheng.mybatis.pageable.MybatisPageableInterceptor">
 			<property name="dialectClass" value="org.buzheng.mybatis.pageable.MySQLDialect" />
@@ -32,6 +36,8 @@
 	</environments>
 
 	<mappers>
-		<mapper class="org.buzheng.mybatis.pageable.mapper.UserMapper" />
+		<mapper resource="org/buzheng/mybatis/pageable/mapper/UserMapper.xml" />
+		<mapper class="org.buzheng.mybatis.pageable.mapper.AnnotateUserMapper" />
 	</mappers>
+
 </configuration>

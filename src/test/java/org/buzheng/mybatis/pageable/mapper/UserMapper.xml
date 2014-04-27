@@ -8,11 +8,11 @@
     select * from user
   </select>
     
-  <select id="findPage">
+  <select id="findPage" resultType="User">
     select * from user
   </select>
   
-  <select id="findPageByFirstName">
+  <select id="findPageByFirstName" resultType="User">
     select * from user where firstName = #{firstName}
   </select>
 </mapper>

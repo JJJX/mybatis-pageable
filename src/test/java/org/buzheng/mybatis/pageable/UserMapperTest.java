@@ -7,9 +7,8 @@ import javax.annotation.Resource;
 import org.buzheng.mybatis.pageable.domain.User;
 import org.buzheng.mybatis.pageable.mapper.UserMapper;
 import org.buzheng.test.BaseTestCase;
+import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 
 public class UserMapperTest extends BaseTestCase {
 	
@@ -20,13 +19,23 @@ public class UserMapperTest extends BaseTestCase {
 	public void testFindAll() {
 		List<User> users = userMapper.findAll();
 		logger.info("all users: {}", users);
+		Assert.assertTrue(users.size() == 18);
 	}
 	
 	@Test
-	public void testFinaPage() {
-		PageRequest pageRequest = new PageRequest(0, 10);
+	public void testFindPage() {
+		Pageable pageRequest = new Pageable(0, 10);
 		Page<User> userPage = userMapper.findPage(pageRequest);
 		logger.info("page 0: {}", userPage);
+		Assert.assertTrue(userPage.getTotalPages() == 2);
+	}
+	
+	@Test
+	public void testFindPageByFirstName() {
+		Pageable pageRequest = new Pageable(0, 15);
+		Page<User> userPage = userMapper.findPageByFirstName("san", pageRequest);
+		logger.info("page 0: {}", userPage);
+		Assert.assertTrue(userPage.getTotalPages() == 1);
 	}
 	
 }

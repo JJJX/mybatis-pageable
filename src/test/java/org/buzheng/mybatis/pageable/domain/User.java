@@ -8,6 +8,10 @@ public class User {
 	private String lasterName;
 	
 	private int age;
+	
+	public User() {
+		System.out.println("User init ===============================");
+	}
 
 	public String getUsername() {
 		return username;
