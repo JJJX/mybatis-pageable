@@ -1,16 +1,11 @@
-Mybatis Pageable
-===============
+# Mybatis Pageable
 
-背景
--------------------
+## 背景
 对Mybatis的原理并不是很了解，但是想法很简单也很直接，就是直接将分页参数传入，返回的需要的分页对象。了解到拦截器可以实现此功能，然后在网上拷贝了一些代码，先实现了想法。
 
-使用方法和思路
--------------------
-拦截器会对Mapper方法中的参数进行分析，如果发现Pageable类型的参数，则认为是分页请求，将请求封装为Page对象返回。
+## 使用方法和思路
 
-### 问题
-分页暂时只支持Mapper方法中的sql在 xml 中配置。如果sql通过注解@Select来配置，则会报错：Caused by: java.lang.NoSuchMethodException: org.buzheng.mybatis.pageable.Page.<init>()
+拦截器会对Mapper方法中的参数进行分析，如果发现Pageable类型的参数，则认为是分页请求，将请求封装为Page对象返回。
 
 ### 拦截器配置 在 mybatis-config.xml 中
 
@@ -80,7 +75,14 @@ try {
 ```
 
 ### 具体使用方法，参看测试案例，位于 src/test/java中
-单独使用mybatis时，参考：org.buzheng.mybatis.pageable.MybatisPageableInterceptorMain
-spring继承mybatis时，参看测试用例：org.buzheng.mybatis.pageable.UserMaperTest
+- 单独使用mybatis时，参考：org.buzheng.mybatis.pageable.MybatisPageableInterceptorMain
+- spring继承mybatis时，参看测试用例：org.buzheng.mybatis.pageable.UserMaperTest
+
+## 问题
+分页暂时只支持Mapper方法中的sql在 xml 中配置。
+
+如果sql通过注解@Select来配置，则会报错：Caused by: java.lang.NoSuchMethodException: org.buzheng.mybatis.pageable.Page.&lt;init>()
+
+********************************************************
 
 方言类和部分逻辑来源于 https://github.com/miemiedev/mybatis-paginator ，特此感谢。
