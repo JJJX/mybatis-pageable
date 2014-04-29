@@ -1,7 +1,9 @@
 package org.buzheng.test;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,5 +25,11 @@ public class BaseTestCase {
 	public void after() {
 		logger.debug("-------------------------------" + this.getClass()
 				+ "----------------------------------");
+	}
+	
+	// a test method
+	@Test
+	public void _test() {
+		Assert.assertTrue(true);
 	}
 }
