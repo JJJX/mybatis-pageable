@@ -67,17 +67,15 @@ public class MybatisPageableInterceptor implements Interceptor {
 	        final Object parameter = queryArgs[PARAMETER_INDEX];
 			
 			final BoundSql boundSql = ms.getBoundSql(parameter);
-			
-			final StringBuffer bufferSql = new StringBuffer(boundSql.getSql().trim());
-			if(bufferSql.lastIndexOf(";") == bufferSql.length()-1){
-	            bufferSql.deleteCharAt(bufferSql.length()-1);
-	        }
-	        
+						        
+			// 删除尾部的 ';'
+	        String sql = boundSql.getSql().trim().replaceAll(";$", "");
 
-	        String sql = bufferSql.toString();
-
-	        // 1. 搞定分页 记录总数			
-			int total = this.queryTotal(sql, ms, boundSql);
+	        // 1. 搞定总记录数（如果需要的话）			
+			int total = 0;
+			if (pageRequest.getCountable()) {
+				total = this.queryTotal(sql, ms, boundSql);
+			}
 			
 			// 2. 搞定limit 查询
 			// 2.1 获取分页SQL，并完成参数准备
@@ -178,9 +176,7 @@ public class MybatisPageableInterceptor implements Interceptor {
                     boundSql.getParameterMappings(), boundSql.getParameterObject());
             
             setParameters(countStmt, mappedStatement, countBoundSql, boundSql.getParameterObject());
-            
-            
-            
+                        
             rs = countStmt.executeQuery();
             int totalCount = 0;
             if (rs.next()) {
