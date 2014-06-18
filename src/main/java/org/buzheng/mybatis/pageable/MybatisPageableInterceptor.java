@@ -30,7 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 分页插件，采用spring-data-common中的 Pageable 和 Page 对象作为输入和输出。
+ * 分页插件，使用 Pageable 和 Page 对象作为输入和输出。
  * 只要方法参数中包含 Pageable 参数，则自动分页。
  * 
  * 方言类和部分逻辑来自： https://github.com/miemiedev/mybatis-paginator
@@ -90,7 +90,6 @@ public class MybatisPageableInterceptor implements Interceptor {
 			Object ret = inv.proceed();
 			
 			// 3. 组成分页对象
-//			Page<?> pi = new PageImpl<Object>((List) ret, pageRequest, total);	
 			Page<?> pi = new Page<Object>((List) ret, pageRequest, total);	
 			
 			// 4. MyBatis 需要返回一个List对象，这里只是满足MyBatis而作的临时包装
