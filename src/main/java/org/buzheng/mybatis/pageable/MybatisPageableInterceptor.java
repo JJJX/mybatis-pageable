@@ -30,7 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 分页插件，采用spring-data-common中的 Pageable 和 Page 对象作为输入和输出。
+ * 分页插件，使用 Pageable 和 Page 对象作为输入和输出。
  * 只要方法参数中包含 Pageable 参数，则自动分页。
  * 
  * 方言类和部分逻辑来自： https://github.com/miemiedev/mybatis-paginator
@@ -67,17 +67,15 @@ public class MybatisPageableInterceptor implements Interceptor {
 	        final Object parameter = queryArgs[PARAMETER_INDEX];
 			
 			final BoundSql boundSql = ms.getBoundSql(parameter);
-			
-			final StringBuffer bufferSql = new StringBuffer(boundSql.getSql().trim());
-			if(bufferSql.lastIndexOf(";") == bufferSql.length()-1){
-	            bufferSql.deleteCharAt(bufferSql.length()-1);
-	        }
-	        
+						        
+			// 删除尾部的 ';'
+	        String sql = boundSql.getSql().trim().replaceAll(";$", "");
 
-	        String sql = bufferSql.toString();
-
-	        // 1. 搞定分页 记录总数			
-			int total = this.queryTotal(sql, ms, boundSql);
+	        // 1. 搞定总记录数（如果需要的话）			
+			int total = 0;
+			if (pageRequest.getCountable()) {
+				total = this.queryTotal(sql, ms, boundSql);
+			}
 			
 			// 2. 搞定limit 查询
 			// 2.1 获取分页SQL，并完成参数准备
@@ -90,7 +88,6 @@ public class MybatisPageableInterceptor implements Interceptor {
 			Object ret = inv.proceed();
 			
 			// 3. 组成分页对象
-//			Page<?> pi = new PageImpl<Object>((List) ret, pageRequest, total);	
 			Page<?> pi = new Page<Object>((List) ret, pageRequest, total);	
 			
 			// 4. MyBatis 需要返回一个List对象，这里只是满足MyBatis而作的临时包装
@@ -181,9 +178,7 @@ public class MybatisPageableInterceptor implements Interceptor {
                     boundSql.getParameterMappings(), boundSql.getParameterObject());
             
             setParameters(countStmt, mappedStatement, countBoundSql, boundSql.getParameterObject());
-            
-            
-            
+                        
             rs = countStmt.executeQuery();
             int totalCount = 0;
             if (rs.next()) {

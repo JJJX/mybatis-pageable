@@ -11,8 +11,29 @@ public class Pageable {
 
 	private final int page;
 	private final int size;
+	
+	/**
+	 * 是否查询总记录数
+	 */
+	private final boolean countable;
 
+	/**
+	 * 
+	 * @param page the page no you want to request, start from 0
+	 * @param size page size
+	 */
 	public Pageable(int page, int size) {
+
+		this(page, size, true);
+	}
+	
+	/**
+	 * 
+	 * @param page the page no you want to request, start from 0
+	 * @param size page size
+	 * @param countable whether count total numbers
+	 */
+	public Pageable(int page, int size, boolean countable) {
 
 		if (page < 0) {
 			throw new IllegalArgumentException("Page index must not be less than zero!");
@@ -24,8 +45,14 @@ public class Pageable {
 
 		this.page = page;
 		this.size = size;
+		
+		this.countable = countable;
 	}
-
+	
+	public boolean getCountable() {
+		return countable;
+	}
+	
 	public int getPageSize() {
 
 		return size;
