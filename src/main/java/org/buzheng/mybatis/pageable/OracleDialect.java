@@ -13,13 +13,6 @@ public class OracleDialect extends Dialect{
 	 * 分页sql首页
 	 */
 	final static String LIMIT_SQL_PATTERN_FIRST = "select * from ( %s ) where rownum <= %s";
-	public boolean supportsLimit() {
-		return true;
-	}
-
-	public boolean supportsLimitOffset() {
-		return true;
-	}
 	
 	public String getLimitString(String sql, int offset, String offsetPlaceholder, int limit, String limitPlaceholder) {
 		sql = sql.trim();

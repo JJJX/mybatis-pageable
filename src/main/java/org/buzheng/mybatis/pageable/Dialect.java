@@ -1,18 +1,9 @@
 package org.buzheng.mybatis.pageable;
 
-public class Dialect {
-	public boolean supportsLimit() {
-		return false;
-	}
-
-	public boolean supportsLimitOffset() {
-		return supportsLimit();
-	}
+public abstract class Dialect {
 
 	/**
-	 * 将sql变成分页sql语句,直接使用offset,limit的值作为占位符.</br>
-	 * 源代码为:
-	 * getLimitString(sql,offset,String.valueOf(offset),limit,String.valueOf(limit))
+	 * 将sql变成分页sql语句, 直接使用offset,limit的值作为占位符.
 	 */
 	public String getLimitString(String sql, int offset, int limit) {
 		return getLimitString(sql, offset, Integer.toString(offset), limit,
@@ -30,10 +21,8 @@ public class Dialect {
 	 * 
 	 * @return 包含占位符的分页sql
 	 */
-	public String getLimitString(String sql, int offset,
-			String offsetPlaceholder, int limit, String limitPlaceholder) {
-		throw new UnsupportedOperationException("paged queries not supported");
-	}
+	public abstract String getLimitString(String sql, int offset,
+			String offsetPlaceholder, int limit, String limitPlaceholder);
 
 	/**
 	 * 将sql转换为总记录数SQL
