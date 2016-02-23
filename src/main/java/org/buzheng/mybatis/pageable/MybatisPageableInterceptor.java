@@ -114,11 +114,12 @@ public class MybatisPageableInterceptor implements Interceptor {
 		
 		// 单个参数 表现为参数对象
 		if(Pageable.class.isAssignableFrom(params.getClass())) {
-			return (Pageable) params;					
+			return (Pageable) params;
 		}
 		
 		// 多个参数 表现为 ParamMap
 		else if (params instanceof ParamMap) {
+			@SuppressWarnings("unchecked")
 			ParamMap<Object> paramMap = (ParamMap<Object>) params;
 			for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
 				Object paramValue = entry.getValue();
