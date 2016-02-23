@@ -3,26 +3,9 @@ package org.buzheng.mybatis.pageable;
 public abstract class Dialect {
 
 	/**
-	 * 将sql变成分页sql语句, 直接使用offset,limit的值作为占位符.
+	 * 返回分页sql，无占位符，limit和 offset 直接写死在sql中
 	 */
-	public String getLimitString(String sql, int offset, int limit) {
-		return getLimitString(sql, offset, Integer.toString(offset), limit,
-				Integer.toString(limit));
-	}
-
-	/**
-	 * 将sql变成分页sql语句,提供将offset及limit使用占位符(placeholder)替换.
-	 * 
-	 * <pre>
-	 * 如mysql
-	 * dialect.getLimitString("select * from user", 12, ":offset",0,":limit") 将返回
-	 * select * from user limit :offset,:limit
-	 * </pre>
-	 * 
-	 * @return 包含占位符的分页sql
-	 */
-	public abstract String getLimitString(String sql, int offset,
-			String offsetPlaceholder, int limit, String limitPlaceholder);
+	public abstract String getLimitString(String sql, int offset, int limit);
 
 	/**
 	 * 将sql转换为总记录数SQL

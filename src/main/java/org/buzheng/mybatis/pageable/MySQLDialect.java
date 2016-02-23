@@ -1,12 +1,13 @@
 package org.buzheng.mybatis.pageable;
 
 public class MySQLDialect extends Dialect {
-	public String getLimitString(String sql, int offset,
-			String offsetPlaceholder, int limit, String limitPlaceholder) {
+	
+	@Override
+	public String getLimitString(String sql, int offset, int limit) {
 		if (offset > 0) {
-			return sql + " limit " + offsetPlaceholder + "," + limitPlaceholder;
+			return sql + " limit " + offset + "," + limit;
 		} else {
-			return sql + " limit " + limitPlaceholder;
+			return sql + " limit " + limit;
 		}
 	}
 
