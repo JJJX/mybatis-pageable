@@ -7,7 +7,7 @@ package org.buzheng.mybatis.pageable;
  *
  */
 public class Pageable {
-	private static final long serialVersionUID = 7280485938848398236L;
+	static final long serialVersionUID = 7280485938848398236L;
 
 	private final int page;
 	private final int size;

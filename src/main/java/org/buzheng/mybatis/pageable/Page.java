@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-
 /**
  * 
  * 分页对象, 存放单页数据
@@ -14,7 +13,7 @@ import java.util.List;
  *
  */
 public class Page<T> {
-	private static final long serialVersionUID = 867755909294344406L;
+	static final long serialVersionUID = 867755909294344406L;
 
 	private final List<T> content = new ArrayList<T>();
 	private final Pageable pageable;
@@ -37,6 +36,7 @@ public class Page<T> {
 
 	/**
 	 * 请求页面
+	 * 
 	 * @return
 	 */
 	public int getNumber() {
@@ -45,6 +45,7 @@ public class Page<T> {
 
 	/**
 	 * page size
+	 * 
 	 * @return
 	 */
 	public int getSize() {
@@ -53,14 +54,17 @@ public class Page<T> {
 
 	/**
 	 * 总页数
+	 * 
 	 * @return
 	 */
 	public int getTotalPages() {
-		return getSize() == 0 ? 1 : (int) Math.ceil((double) total / (double) getSize());
+		return getSize() == 0 ? 1
+				: (int) Math.ceil((double) total / (double) getSize());
 	}
 
 	/**
 	 * 当前页记录条数
+	 * 
 	 * @return
 	 */
 	public int getNumberOfElements() {
@@ -69,6 +73,7 @@ public class Page<T> {
 
 	/**
 	 * 总记录条数
+	 * 
 	 * @return
 	 */
 	public long getTotalElements() {
@@ -77,6 +82,7 @@ public class Page<T> {
 
 	/**
 	 * 是否有上一页
+	 * 
 	 * @return
 	 */
 	public boolean hasPreviousPage() {
@@ -85,6 +91,7 @@ public class Page<T> {
 
 	/**
 	 * 是否首页
+	 * 
 	 * @return
 	 */
 	public boolean isFirstPage() {
@@ -93,6 +100,7 @@ public class Page<T> {
 
 	/**
 	 * 是否有下一页
+	 * 
 	 * @return
 	 */
 	public boolean hasNextPage() {
@@ -101,6 +109,7 @@ public class Page<T> {
 
 	/**
 	 * 是否末页
+	 * 
 	 * @return
 	 */
 	public boolean isLastPage() {
@@ -109,6 +118,7 @@ public class Page<T> {
 
 	/**
 	 * 下一页请求对象
+	 * 
 	 * @return
 	 */
 	public Pageable nextPageable() {
@@ -117,6 +127,7 @@ public class Page<T> {
 
 	/**
 	 * 上一页请求对象
+	 * 
 	 * @return
 	 */
 	public Pageable previousPageable() {
@@ -130,6 +141,7 @@ public class Page<T> {
 
 	/**
 	 * 迭代器
+	 * 
 	 * @return
 	 */
 	public Iterator<T> iterator() {
@@ -138,6 +150,7 @@ public class Page<T> {
 
 	/**
 	 * 当前页元素列表
+	 * 
 	 * @return
 	 */
 	public List<T> getContent() {
@@ -146,15 +159,16 @@ public class Page<T> {
 
 	/**
 	 * 当前页是否有元素
+	 * 
 	 * @return
 	 */
 	public boolean hasContent() {
 		return !content.isEmpty();
 	}
 
-
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -166,7 +180,8 @@ public class Page<T> {
 			contentType = content.get(0).getClass().getName();
 		}
 
-		return String.format("Page %s of %d containing %s instances", getNumber(), getTotalPages(), contentType);
+		return String.format("Page %s of %d containing %s instances",
+				getNumber(), getTotalPages(), contentType);
 	}
 
 }

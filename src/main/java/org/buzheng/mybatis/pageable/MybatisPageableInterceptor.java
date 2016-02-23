@@ -88,7 +88,8 @@ public class MybatisPageableInterceptor implements Interceptor {
 			Object ret = inv.proceed();
 			
 			// 3. 组成分页对象
-			Page<?> pi = new Page<Object>((List) ret, pageRequest, total);	
+			@SuppressWarnings({ "unchecked" })
+			Page<Object> pi = new Page<Object>((List<Object>) ret, pageRequest, total);	
 			
 			// 4. MyBatis 需要返回一个List对象，这里只是满足MyBatis而作的临时包装
 			List<Page<?>> tmp = new ArrayList<Page<?>>(1);
